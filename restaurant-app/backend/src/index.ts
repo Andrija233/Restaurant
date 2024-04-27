@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import UserRouter from "./routes/UserRouter";
 import { v2 as cloudinary} from "cloudinary";
 import RestaurantRoute from "./routes/RestaurantRoute";
+import RestaurantsRoutes from "./routes/RestaurantsRoutes";
 
 mongoose.connect(process.env.MONGO_DB_CONNECTION_STRING as string)
 .then(() =>
@@ -28,6 +29,7 @@ app.get("/health", async(req: Request, res: Response) => {
 
 app.use("/api/my/user", UserRouter);
 app.use("/api/my/restaurant", RestaurantRoute);
+app.use("/api/restaurant", RestaurantsRoutes);
 
 app.listen(7000, () => {
     console.log("Server is running on port 7000");
