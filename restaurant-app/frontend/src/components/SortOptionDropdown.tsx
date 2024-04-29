@@ -1,0 +1,54 @@
+import { Button } from "./ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
+
+type Props = {
+    onChange: (value: string) => void
+    sortOption: string;
+}
+
+const SORT_OPTIONS = [
+    {
+        label:"Best match",
+        value:"bestMatch"
+    },
+    {
+        label:"Delivery price",
+        value:"deliveryPrice"
+    },
+    {
+        label:"Estimated delivery time",
+        value:"estimatedDeliveryTime"
+    },
+]
+
+const SortOptionDropdown = ({onChange, sortOption}: Props) => {
+
+    const selectedSortLabel = SORT_OPTIONS.find((option) => option.value === sortOption)?.label || SORT_OPTIONS[0].label
+
+    const handleDropdownReset = () => onChange(SORT_OPTIONS[0].value);
+
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger className="cursor-pointer">
+                <Button variant="outline" className="w-full">
+                    Sort By: {selectedSortLabel}
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+                {SORT_OPTIONS.map((option) => (
+                    <DropdownMenuItem className="cursor-pointer" key={option.value} onClick={() => onChange(option.value)}>
+                        {option.label}
+                    </DropdownMenuItem>
+                ))}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                    <Button onClick={handleDropdownReset} variant="outline" className="w-full">
+                        Reset
+                    </Button>
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
+    )
+}
+
+export default SortOptionDropdown
